@@ -16,5 +16,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 // explanation, no punctuation, no trailing newline.
 const letter = "B";
 
+// Guard: the gate requires exactly one letter, A or B, and nothing
+// else. Fail loudly instead of writing an out-of-range entry.
+if (!/^[AB]$/.test(letter)) {
+  throw new Error(`letter must be exactly one of A/B, got ${JSON.stringify(letter)}`);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", letter, "utf8");
